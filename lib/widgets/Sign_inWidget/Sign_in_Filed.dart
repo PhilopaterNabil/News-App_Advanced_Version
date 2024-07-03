@@ -37,7 +37,8 @@ class Sign_in_Filed extends StatelessWidget {
       } else if (state is SignInFailure) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('opps error enter email , password  reset'),
+            content: Text(
+                'opps error enter email , password  reset or cheack Email'),
           ),
         );
       }
@@ -86,6 +87,8 @@ class Sign_in_Filed extends StatelessWidget {
                           innerText: 'Sign In',
                           onPressed: () {
                             context.read<UserCubit>().signing();
+
+                            context.read<UserCubit>().CheckEmail();
                           },
                         ),
                       const SizedBox(height: 18),
