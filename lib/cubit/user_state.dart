@@ -1,4 +1,6 @@
- class UserState {}
+import 'package:sin_api/models/userModel.dart';
+
+class UserState {}
 
 final class UserInitial extends UserState {}
 
@@ -28,8 +30,16 @@ final class SignUpFailure extends UserState {
   SignUpFailure({required this.errMessage});
 }
 
-// final class GetUserSuccess extends UserState {
-//   final UserModel user;
+final class UserLoding extends UserState {}
 
-//   GetUserSuccess({required this.user});
-// }
+final class Userfailer extends UserState {
+  final String errMessage;
+
+  Userfailer({required this.errMessage});
+}
+
+final class GetUserSuccess extends UserState {
+  final UserModel user;
+
+  GetUserSuccess({required this.user});
+}

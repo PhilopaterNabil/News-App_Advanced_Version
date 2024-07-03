@@ -87,8 +87,8 @@ class Sign_in_Filed extends StatelessWidget {
                           innerText: 'Sign In',
                           onPressed: () {
                             context.read<UserCubit>().signing();
-
-                            context.read<UserCubit>().CheckEmail();
+                            context.read<UserCubit>().userCubit();
+                            // context.read<UserCubit>().CheckEmail();
                           },
                         ),
                       const SizedBox(height: 18),
