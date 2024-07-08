@@ -5,9 +5,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:sin_api/cache/cach_helper.dart';
 import 'package:sin_api/core/Api/api_consumer.dart';
+import 'package:sin_api/core/Api/end_point.dart';
+import 'package:sin_api/core/Error/exceptions.dart';
 import 'package:sin_api/cubit/user_state.dart';
-import 'package:sin_api/models/SignIN_model.dart';
+import 'package:sin_api/models/signin_model.dart';
 
 class UserCubit extends Cubit<UserState> {
   UserCubit(this.api) : super(UserInitial());
@@ -32,7 +36,26 @@ class UserCubit extends Cubit<UserState> {
   TextEditingController signUpPassword = TextEditingController();
   //Sign up confirm password
   TextEditingController confirmPassword = TextEditingController();
-  late SignInModel response;
 
-  
+  SignInModel? user;
+
+  signIn() async {
+    try {
+      emit(SignInLoading());
+      final response = await api.post(
+        EndPoint.signIn,
+        data: {
+          ApiKey.email: signInEmail.text,
+          ApiKey.password: signInPassword.text,
+        },
+      );
+      user = SignInModel.fromJson(response);
+      final decodedToken = JwtDecoder.decode(user!.token);
+      CacheHelper().saveData(key: ApiKey.token, value: user!.token);
+      CacheHelper().saveData(key: ApiKey.id, value: decodedToken[ApiKey.id]);
+      emit(SignInSuccess());
+    } on ServerException catch (e) {
+      emit(SignInFailure(errMessage: e.errModel.errorMessage));
+    }
+  }
 }
