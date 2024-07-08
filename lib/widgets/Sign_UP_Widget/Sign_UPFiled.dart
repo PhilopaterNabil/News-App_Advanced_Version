@@ -86,7 +86,7 @@ class SignUpFiled extends StatelessWidget {
               CustomFormButton(
                 innerText: 'Signup',
                 onPressed: () {
-                  // context.read<UserCubit>().signUp();
+                  context.read<UserCubit>().SignUp();
                 },
               ),
             const SizedBox(height: 18),

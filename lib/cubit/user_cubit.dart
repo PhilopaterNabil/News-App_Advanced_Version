@@ -10,7 +10,9 @@ import 'package:sin_api/cache/cach_helper.dart';
 import 'package:sin_api/core/Api/api_consumer.dart';
 import 'package:sin_api/core/Api/end_point.dart';
 import 'package:sin_api/core/Error/exceptions.dart';
+import 'package:sin_api/core/functions/upload_image_to_api.dart';
 import 'package:sin_api/cubit/user_state.dart';
+import 'package:sin_api/models/sign_up_model.dart';
 import 'package:sin_api/models/signin_model.dart';
 
 class UserCubit extends Cubit<UserState> {
@@ -39,6 +41,39 @@ class UserCubit extends Cubit<UserState> {
 
   SignInModel? user;
 
+  uploadProFilePic(XFile image) {
+    profilePic = image;
+    emit(UploadProfilePic());
+  }
+
+  SignUp() async {
+    try {
+      if (profilePic == null) {
+        emit(SignUpFailure(errMessage: 'Profile picture is required.'));
+        return;
+      }
+      emit(SignUpLoading());
+      final response = await api.post(
+        EndPoint.signUp,
+        isFromData: true,
+        data: {
+          ApiKey.name: signUpName.text,
+          ApiKey.email: signUpEmail.text,
+          ApiKey.phone: signUpPhoneNumber.text,
+          ApiKey.password: signUpPassword.text,
+          ApiKey.confirmPassword: confirmPassword.text,
+          ApiKey.location:
+              '{"name":"methalfa","address":"meet halfa","coordinates":[30.1572709,31.224779]}',
+          ApiKey.profilePic: await uploadImageToAPI(profilePic!),
+        },
+      );
+      final signUpModel = SignUpModel.fromJson(response);
+      emit(SignUpSuccess(message: signUpModel.message));
+    } on ServerException catch (e) {
+      emit(SignUpFailure(errMessage: e.errModel.errorMessage));
+    }
+  }
+
   signIn() async {
     try {
       emit(SignInLoading());
@@ -50,7 +85,7 @@ class UserCubit extends Cubit<UserState> {
         },
       );
       user = SignInModel.fromJson(response);
-      final decodedToken = JwtDecoder.decode(user!.token);
+      final decodedToken = JwtDecoder.decode(user?.token ?? '');
       CacheHelper().saveData(key: ApiKey.token, value: user!.token);
       CacheHelper().saveData(key: ApiKey.id, value: decodedToken[ApiKey.id]);
       emit(SignInSuccess());
