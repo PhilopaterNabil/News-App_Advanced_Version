@@ -86,8 +86,8 @@ class Sign_in_Filed extends StatelessWidget {
                         CustomFormButton(
                           innerText: 'Sign In',
                           onPressed: () {
-                            context.read<UserCubit>().signing();
-                            context.read<UserCubit>().userCubit();
+                            context.read<UserCubit>().signIn();
+                            // context.read<UserCubit>().userCubit();
                             // context.read<UserCubit>().CheckEmail();
                           },
                         ),

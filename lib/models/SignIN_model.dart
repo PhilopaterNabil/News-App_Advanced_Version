@@ -1,3 +1,5 @@
+import 'package:sin_api/core/Api/end_point.dart';
+
 class SignInModel {
   final String message;
   final String token;
@@ -6,8 +8,8 @@ class SignInModel {
 
   factory SignInModel.fromJson(Map<String, dynamic> json) {
     return SignInModel(
-      message: json['message'],
-      token: json['token'],
+      message: json[ApiKey.message],
+      token: json[ApiKey.token],
     );
   }
 
