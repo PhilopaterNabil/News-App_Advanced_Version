@@ -7,8 +7,11 @@ import 'package:sin_api/core/Error/exceptions.dart';
 class DioConsumer extends ApiConsumer {
   final Dio dio;
 
+  // Setting up DioConsumer with Dio
   DioConsumer({required this.dio}) {
+    // Set the base URL for requests
     dio.options.baseUrl = EndPoint.baseUrl;
+    // Add interceptors for requests
     dio.interceptors.add(ApiInterceptors());
     dio.interceptors.add(LogInterceptor(
         request: true,
@@ -18,6 +21,8 @@ class DioConsumer extends ApiConsumer {
         responseHeader: true,
         error: true));
   }
+
+  // Function to delete data from the server
   @override
   Future delete(
     String path, {
@@ -26,32 +31,40 @@ class DioConsumer extends ApiConsumer {
     bool isFromData = false,
   }) async {
     try {
+      // Execute delete request
       final response = await dio.delete(
         path,
         data: isFromData ? FormData.fromMap(data) : data,
         queryParameters: queryParameters,
       );
+      // Return the response data
       return response.data;
     } on DioException catch (e) {
+      // Handle exceptions from the request
       handleDioExceptions(e);
     }
   }
 
+  // Function to get data from the server
   @override
   Future get(String path,
       {Object? data, Map<String, dynamic>? queryParameters}) async {
     try {
+      // Execute get request
       final response = await dio.get(
         path,
         data: data,
         queryParameters: queryParameters,
       );
+      // Return the response data
       return response.data;
     } on DioException catch (e) {
+      // Handle exceptions from the request
       handleDioExceptions(e);
     }
   }
 
+  // Function to partially update data on the server
   @override
   Future patch(
     String path, {
@@ -60,17 +73,21 @@ class DioConsumer extends ApiConsumer {
     bool isFromData = false,
   }) async {
     try {
+      // Execute patch request
       final response = await dio.patch(
         path,
         data: isFromData ? FormData.fromMap(data) : data,
         queryParameters: queryParameters,
       );
+      // Return the response data
       return response.data;
     } on DioException catch (e) {
+      // Handle exceptions from the request
       handleDioExceptions(e);
     }
   }
 
+  // Function to create data on the server
   @override
   Future post(
     String path, {
@@ -79,13 +96,16 @@ class DioConsumer extends ApiConsumer {
     bool isFromData = false,
   }) async {
     try {
+      // Execute post request
       final response = await dio.post(
         path,
         data: isFromData ? FormData.fromMap(data) : data,
         queryParameters: queryParameters,
       );
+      // Return the response data
       return response.data;
     } on DioException catch (e) {
+      // Handle exceptions from the request
       handleDioExceptions(e);
     }
   }
