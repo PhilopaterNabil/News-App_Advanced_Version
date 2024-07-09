@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:sin_api/cubit/user_cubit.dart';
 import 'package:sin_api/cubit/user_state.dart';
 import 'package:sin_api/models/user_model.dart';
@@ -8,6 +9,8 @@ import 'package:sin_api/screens/update_profile.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
+
+  static String id = "ProfileScreen";
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -22,22 +25,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Profile'),
-      ),
-      body: BlocBuilder<UserCubit, UserState>(
-        builder: (context, state) {
-          if (state is UserLoding) {
-            return Center(child: CircularProgressIndicator());
-          } else if (state is GetUserSuccess) {
-            return ProfileDetails(user: state.user);
-          } else if (state is Userfailer) {
-            return Center(child: Text(state.errMessage));
-          } else {
-            return Center();
-          }
-        },
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Profile'),
+        ),
+        body: BlocBuilder<UserCubit, UserState>(
+          builder: (context, state) {
+            if (state is UserLoding) {
+              return Center(child: CircularProgressIndicator());
+            } else if (state is GetUserSuccess) {
+              return ProfileDetails(user: state.user);
+            } else if (state is Userfailer) {
+              return Center(child: Text(state.errMessage));
+            } else {
+              return const Center(
+                child: Text(' return login agin '),
+              );
+            }
+          },
+        ),
       ),
     );
   }
@@ -79,8 +89,10 @@ class ProfileDetails extends StatelessWidget {
             context.read<UserCubit>().DeleteUser();
             Navigator.push(
               context,
-              MaterialPageRoute(
-                builder: (context) => const DeletUser(),
+              PageTransition(
+                type: PageTransitionType.fade,
+                duration: Duration(milliseconds: 375),
+                child: DeletUser(),
               ),
             );
           },
@@ -91,8 +103,10 @@ class ProfileDetails extends StatelessWidget {
             {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => const UpdateProfile(),
+                PageTransition(
+                  type: PageTransitionType.fade,
+                  duration: Duration(milliseconds: 375),
+                  child: UpdateProfile(),
                 ),
               );
             }
@@ -103,12 +117,7 @@ class ProfileDetails extends StatelessWidget {
           onPressed: () {
             context.read<UserCubit>().logOut();
             {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const SignInScreen(),
-                ),
-              );
+              Navigator.pop(context);
             }
           },
           child: Text('log Out'),
@@ -136,8 +145,10 @@ class DeletUser extends StatelessWidget {
             );
             Navigator.push(
               context,
-              MaterialPageRoute(
-                builder: (context) => const SignInScreen(),
+              PageTransition(
+                type: PageTransitionType.fade,
+                duration: Duration(milliseconds: 375),
+                child: SignInScreen(),
               ),
             );
           } else if (state is DeleteUserfailer) {

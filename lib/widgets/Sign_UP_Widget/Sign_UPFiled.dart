@@ -38,6 +38,7 @@ class SignUpFiled extends StatelessWidget {
             const SizedBox(height: 16),
             //! Name
             CustomInputField(
+              keyboardType: TextInputType.name,
               labelText: 'Name',
               hintText: 'Your name',
               isDense: true,
@@ -46,6 +47,7 @@ class SignUpFiled extends StatelessWidget {
             const SizedBox(height: 16),
             //!Email
             CustomInputField(
+              keyboardType: TextInputType.emailAddress,
               labelText: 'Email',
               hintText: 'Your email',
               isDense: true,
@@ -54,6 +56,7 @@ class SignUpFiled extends StatelessWidget {
             const SizedBox(height: 16),
             //! Phone Number
             CustomInputField(
+              keyboardType: TextInputType.phone,
               labelText: 'Phone number',
               hintText: 'Your phone number ex:01234567890',
               isDense: true,
@@ -62,6 +65,7 @@ class SignUpFiled extends StatelessWidget {
             const SizedBox(height: 16),
             //! Password
             CustomInputField(
+              keyboardType: TextInputType.visiblePassword,
               labelText: 'Password',
               hintText: 'Your password',
               isDense: true,
@@ -71,6 +75,7 @@ class SignUpFiled extends StatelessWidget {
             ),
             //! Confirm Password
             CustomInputField(
+              keyboardType:TextInputType.visiblePassword,
               labelText: 'Confirm Password',
               hintText: 'Confirm Your password',
               isDense: true,

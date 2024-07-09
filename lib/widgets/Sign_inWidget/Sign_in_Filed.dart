@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:sin_api/cubit/user_cubit.dart';
 import 'package:sin_api/cubit/user_state.dart';
 import 'package:sin_api/screens/profile_screen.dart';
@@ -26,13 +27,14 @@ class Sign_in_Filed extends StatelessWidget {
           const SnackBar(
             content: Text("success"),
           ),
-          
         );
         context.read<UserCubit>().getUserProfile();
         Navigator.push(
           context,
-          MaterialPageRoute(
-            builder: (context) => const ProfileScreen(),
+          PageTransition(
+            type: PageTransitionType.fade,
+            duration: Duration(milliseconds: 375),
+            child: ProfileScreen(),
           ),
         );
       } else if (state is SignInFailure) {
@@ -63,6 +65,7 @@ class Sign_in_Filed extends StatelessWidget {
                       const PageHeading(title: 'Sign-in'),
                       //!Email
                       CustomInputField(
+                        keyboardType: TextInputType.emailAddress,
                         labelText: 'Email',
                         hintText: 'Your email',
                         controller: context.read<UserCubit>().signInEmail,
@@ -70,6 +73,7 @@ class Sign_in_Filed extends StatelessWidget {
                       const SizedBox(height: 16),
                       //!Password
                       CustomInputField(
+                        keyboardType: TextInputType.visiblePassword,
                         labelText: 'Password',
                         hintText: 'Your password',
                         obscureText: true,

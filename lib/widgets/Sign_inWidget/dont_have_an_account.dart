@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:sin_api/screens/sign_up_screen.dart';
 
 class DontHaveAnAccountWidget extends StatelessWidget {
@@ -27,8 +28,10 @@ class DontHaveAnAccountWidget extends StatelessWidget {
             onTap: () => {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => const SignUpScreen(),
+                PageTransition(
+                  type: PageTransitionType.fade,
+                  duration: Duration(milliseconds: 375),
+                  child: SignUpScreen(),
                 ),
               )
             },

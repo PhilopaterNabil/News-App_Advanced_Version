@@ -7,6 +7,7 @@ class CustomInputField extends StatefulWidget {
   final bool? isDense;
   final bool obscureText;
   final TextEditingController? controller;
+  final TextInputType keyboardType;
 
   const CustomInputField(
       {Key? key,
@@ -15,7 +16,8 @@ class CustomInputField extends StatefulWidget {
       this.suffixIcon = false,
       this.isDense,
       this.obscureText = false,
-      this.controller})
+      this.controller,
+      required this.keyboardType})
       : super(key: key);
 
   @override
@@ -40,6 +42,7 @@ class _CustomInputFieldState extends State<CustomInputField> {
             ),
           ),
           TextFormField(
+            keyboardType: widget.keyboardType,
             obscureText: (widget.obscureText && _obscureText),
             decoration: InputDecoration(
               isDense: (widget.isDense != null) ? widget.isDense : false,

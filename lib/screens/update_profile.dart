@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'package:page_transition/page_transition.dart';
 import 'package:sin_api/cubit/user_cubit.dart';
 import 'package:sin_api/cubit/user_state.dart';
-import 'package:sin_api/screens/sign_in_screen.dart';
+// import 'package:sin_api/screens/sign_in_screen.dart';
 import 'package:sin_api/widgets/App/custom_form_button.dart';
 import 'package:sin_api/widgets/App/custom_input_field.dart';
 import 'package:sin_api/widgets/App/page_heading.dart';
@@ -10,6 +11,8 @@ import 'package:sin_api/widgets/Sign_UP_Widget/pick_image_widget.dart';
 
 class UpdateProfile extends StatelessWidget {
   const UpdateProfile({super.key});
+
+  static String id = "Update_Profile";
 
   @override
   Widget build(BuildContext context) {
@@ -19,12 +22,7 @@ class UpdateProfile extends StatelessWidget {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text(state.message),
           ));
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const SignInScreen(),
-            ),
-          );
+          Navigator.pop(context);
         } else if (state is UpDateFailure) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text(state.errMessage),
@@ -46,6 +44,7 @@ class UpdateProfile extends StatelessWidget {
                 const SizedBox(height: 16),
                 //! Name
                 CustomInputField(
+                  keyboardType: TextInputType.name,
                   labelText: 'Name',
                   hintText: 'Your name',
                   isDense: true,
@@ -53,13 +52,14 @@ class UpdateProfile extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 CustomInputField(
+                  keyboardType: TextInputType.phone,
                   labelText: 'Phone number',
                   hintText: 'Your phone number ex:01234567890',
                   isDense: true,
                   controller: context.read<UserCubit>().signUpPhoneNumber,
                 ),
                 SizedBox(height: 20),
-                if (state is SignUpLoading)
+                if (state is UpDateLoading)
                   const CircularProgressIndicator()
                 else
                   CustomFormButton(
