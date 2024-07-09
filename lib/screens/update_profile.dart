@@ -38,7 +38,7 @@ class UpdateProfile extends StatelessWidget {
             body: SingleChildScrollView(
               child: Column(children: [
                 SizedBox(height: 25),
-                const PageHeading(title: 'Sign-up'),
+                const PageHeading(title: 'Update Profile'),
                 //! Image
                 const PickImageWidget(),
                 const SizedBox(height: 16),
