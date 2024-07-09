@@ -26,8 +26,9 @@ class Sign_in_Filed extends StatelessWidget {
           const SnackBar(
             content: Text("success"),
           ),
+          
         );
-        // context.read<UserCubit>().getUserProfile();
+        context.read<UserCubit>().getUserProfile();
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -87,8 +88,6 @@ class Sign_in_Filed extends StatelessWidget {
                           innerText: 'Sign In',
                           onPressed: () {
                             context.read<UserCubit>().signIn();
-                            // context.read<UserCubit>().userCubit();
-                            // context.read<UserCubit>().CheckEmail();
                           },
                         ),
                       const SizedBox(height: 18),

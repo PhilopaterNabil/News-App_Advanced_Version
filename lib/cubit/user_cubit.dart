@@ -14,6 +14,7 @@ import 'package:sin_api/core/functions/upload_image_to_api.dart';
 import 'package:sin_api/cubit/user_state.dart';
 import 'package:sin_api/models/sign_up_model.dart';
 import 'package:sin_api/models/signin_model.dart';
+import 'package:sin_api/models/user_model.dart';
 
 class UserCubit extends Cubit<UserState> {
   UserCubit(this.api) : super(UserInitial());
@@ -91,6 +92,20 @@ class UserCubit extends Cubit<UserState> {
       emit(SignInSuccess());
     } on ServerException catch (e) {
       emit(SignInFailure(errMessage: e.errModel.errorMessage));
+    }
+  }
+
+  getUserProfile() async {
+    try {
+      emit(UserLoding());
+      final response = await api.get(
+        EndPoint.getUserDataEndPoint(CacheHelper().getData(key: ApiKey.id)),
+      );
+      emit(GetUserSuccess(
+        user: UserModel.fromJson(response),
+      ));
+    } on ServerException catch (e) {
+      emit(Userfailer(errMessage: e.errModel.errorMessage));
     }
   }
 }

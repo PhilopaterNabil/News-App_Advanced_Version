@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sin_api/cubit/user_cubit.dart';
 import 'package:sin_api/cubit/user_state.dart';
-import 'package:sin_api/models/userModel.dart';
+import 'package:sin_api/models/user_model.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -51,6 +51,11 @@ class ProfileDetails extends StatelessWidget {
     return ListView(
       padding: EdgeInsets.all(16),
       children: [
+        CircleAvatar(
+          radius: 80,
+          backgroundImage: NetworkImage(user.profilePic),
+        ),
+        SizedBox(height: 16),
         ListTile(
           leading: Icon(Icons.person),
           title: Text(user.name),

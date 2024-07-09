@@ -1,4 +1,4 @@
-import 'package:sin_api/models/userModel.dart';
+import 'package:sin_api/models/user_model.dart';
 
 class UserState {}
 
