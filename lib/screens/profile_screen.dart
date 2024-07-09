@@ -4,6 +4,7 @@ import 'package:sin_api/cubit/user_cubit.dart';
 import 'package:sin_api/cubit/user_state.dart';
 import 'package:sin_api/models/user_model.dart';
 import 'package:sin_api/screens/sign_in_screen.dart';
+import 'package:sin_api/screens/update_profile.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -87,6 +88,19 @@ class ProfileDetails extends StatelessWidget {
         ),
         ElevatedButton(
           onPressed: () {
+            {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const UpdateProfile(),
+                ),
+              );
+            }
+          },
+          child: Text('Update Profile'),
+        ),
+        ElevatedButton(
+          onPressed: () {
             context.read<UserCubit>().logOut();
             {
               Navigator.push(
@@ -135,9 +149,9 @@ class DeletUser extends StatelessWidget {
           }
         },
         builder: (context, state) {
-           return Center(
-              child: Text('Delete Profile'),
-            );
+          return Center(
+            child: Text('Delete Profile'),
+          );
         },
       ),
     );

@@ -2,6 +2,7 @@
 
 // ignore_for_file: unnecessary_null_comparison, unused_local_variable
 
+// import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -15,6 +16,8 @@ import 'package:sin_api/cubit/user_state.dart';
 import 'package:sin_api/models/delete_user_model.dart';
 import 'package:sin_api/models/sign_up_model.dart';
 import 'package:sin_api/models/signin_model.dart';
+import 'package:sin_api/models/update_model.dart';
+// import 'package:sin_api/models/update_model.dart';
 import 'package:sin_api/models/user_model.dart';
 
 class UserCubit extends Cubit<UserState> {
@@ -107,6 +110,28 @@ class UserCubit extends Cubit<UserState> {
       ));
     } on ServerException catch (e) {
       emit(Userfailer(errMessage: e.errModel.errorMessage));
+    }
+  }
+
+  updateUserProfile() async {
+    try {
+      if (profilePic == null) {
+        emit(SignUpFailure(errMessage: 'Profile picture is required.'));
+        return;
+      }
+      emit(UpDateLoading());
+      final response =
+          await api.patch(EndPoint.update, isFromData: true, data: {
+        ApiKey.name: signUpName.text,
+        ApiKey.phone: signUpPhoneNumber.text,
+        ApiKey.location:
+            '{"name":"cairo","address":"meet halfa","coordinates":[30.1572709,31.224779]}',
+        ApiKey.profilePic: await uploadImageToAPI(profilePic!),
+      });
+      final updateModel = UpdateModel.fromJson(response);
+      emit(UpDateSuccess(message: updateModel.message));
+    } on ServerException catch (e) {
+      emit(SignUpFailure(errMessage: e.errModel.errorMessage));
     }
   }
 

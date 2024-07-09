@@ -21,10 +21,19 @@ class PickImageWidget extends StatelessWidget {
         if (context.read<UserCubit>().profilePic == null) {
           return DefiletImage();
         } else {
-          return CircleAvatar(
-            radius: 50,
-            backgroundImage: FileImage(
-                File(context.read<UserCubit>().profilePic?.path ?? '')),
+          return InkWell(
+            onTap: () {
+              ImagePicker()
+                  .pickImage(source: ImageSource.gallery)
+                  .then((value) {
+                context.read<UserCubit>().uploadProFilePic(value!);
+              });
+            },
+            child: CircleAvatar(
+              radius: 50,
+              backgroundImage: FileImage(
+                  File(context.read<UserCubit>().profilePic?.path ?? '')),
+            ),
           );
         }
       },

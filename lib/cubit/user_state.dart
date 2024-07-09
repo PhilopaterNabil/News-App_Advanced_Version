@@ -23,6 +23,20 @@ final class SignUpSuccess extends UserState {
   SignUpSuccess({required this.message});
 }
 
+final class UpDateLoading extends UserState {}
+
+final class UpDateFailure extends UserState {
+  final String errMessage;
+
+  UpDateFailure({required this.errMessage});
+}
+
+final class UpDateSuccess extends UserState {
+  final String message;
+
+  UpDateSuccess({required this.message});
+}
+
 final class SignUpLoading extends UserState {}
 
 final class SignUpFailure extends UserState {
