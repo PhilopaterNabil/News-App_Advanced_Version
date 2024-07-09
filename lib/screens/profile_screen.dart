@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sin_api/cubit/user_cubit.dart';
 import 'package:sin_api/cubit/user_state.dart';
 import 'package:sin_api/models/user_model.dart';
+import 'package:sin_api/screens/sign_in_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -33,7 +34,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           } else if (state is Userfailer) {
             return Center(child: Text(state.errMessage));
           } else {
-            return Center(child: Text('Something went wrong'));
+            return Center();
           }
         },
       ),
@@ -72,7 +73,73 @@ class ProfileDetails extends StatelessWidget {
           leading: Icon(Icons.location_city),
           title: Text(user.location.type),
         ),
+        ElevatedButton(
+          onPressed: () {
+            context.read<UserCubit>().DeleteUser();
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const DeletUser(),
+              ),
+            );
+          },
+          child: Text('Delete Profile'),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            context.read<UserCubit>().logOut();
+            {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SignInScreen(),
+                ),
+              );
+            }
+          },
+          child: Text('log Out'),
+        )
       ],
+    );
+  }
+}
+
+class DeletUser extends StatelessWidget {
+  const DeletUser({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: BlocConsumer<UserCubit, UserState>(
+        listener: (context, state) {
+          if (state is DeleteUserLoding) {
+            Center(child: CircularProgressIndicator());
+          } else if (state is DeleteUserSuccess) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.deldetModel.message ?? "Done"),
+              ),
+            );
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const SignInScreen(),
+              ),
+            );
+          } else if (state is DeleteUserfailer) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.errMessage),
+              ),
+            );
+          }
+        },
+        builder: (context, state) {
+           return Center(
+              child: Text('Delete Profile'),
+            );
+        },
+      ),
     );
   }
 }

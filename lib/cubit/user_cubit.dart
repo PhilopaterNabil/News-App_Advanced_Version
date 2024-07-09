@@ -12,6 +12,7 @@ import 'package:sin_api/core/Api/end_point.dart';
 import 'package:sin_api/core/Error/exceptions.dart';
 import 'package:sin_api/core/functions/upload_image_to_api.dart';
 import 'package:sin_api/cubit/user_state.dart';
+import 'package:sin_api/models/delete_user_model.dart';
 import 'package:sin_api/models/sign_up_model.dart';
 import 'package:sin_api/models/signin_model.dart';
 import 'package:sin_api/models/user_model.dart';
@@ -106,6 +107,51 @@ class UserCubit extends Cubit<UserState> {
       ));
     } on ServerException catch (e) {
       emit(Userfailer(errMessage: e.errModel.errorMessage));
+    }
+  }
+
+  logOut() async {
+    try {
+      emit(UserLoding());
+      final response = await api.get(
+        EndPoint.logout,
+      );
+      emit(UserlogoutSuccess());
+    } on ServerException catch (e) {
+      emit(UserlogoutFailre(errMessage: e.errModel.errorMessage));
+    }
+  }
+
+  DeleteUser() async {
+    try {
+      emit(DeleteUserLoding());
+      final userId = CacheHelper().getData(key: ApiKey.id);
+      if (userId == null) {
+        throw Exception('User ID not found');
+      }
+
+      print('User ID: $userId');
+
+      final response = await api.delete(
+        EndPoint.DeleteUserEndPoint(userId),
+        queryParameters: {
+          'id': '${userId.toString()}',
+        },
+        data: {
+          // 'id': '/${userId.toString()}',
+        },
+        isFromData: true,
+      );
+
+      print('Response: ${response.toString()}');
+
+      emit(DeleteUserSuccess(deldetModel: DeldetModel.fromJson(response)));
+    } on ServerException catch (e) {
+      emit(DeleteUserfailer(errMessage: e.errModel.errorMessage));
+      print('ServerException: ${e.errModel.errorMessage}');
+    } catch (e) {
+      emit(DeleteUserfailer(errMessage: e.toString()));
+      print('Exception: ${e.toString()}');
     }
   }
 }

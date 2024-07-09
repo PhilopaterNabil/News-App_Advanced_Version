@@ -1,3 +1,4 @@
+import 'package:sin_api/models/delete_user_model.dart';
 import 'package:sin_api/models/user_model.dart';
 
 class UserState {}
@@ -31,6 +32,30 @@ final class SignUpFailure extends UserState {
 }
 
 final class UserLoding extends UserState {}
+
+final class UserlogoutLoding extends UserState {}
+
+final class UserlogoutSuccess extends UserState {}
+
+final class UserlogoutFailre extends UserState {
+  final String errMessage;
+
+  UserlogoutFailre({required this.errMessage});
+}
+
+final class DeleteUserLoding extends UserState {}
+
+final class DeleteUserfailer extends UserState {
+  final String errMessage;
+
+  DeleteUserfailer({required this.errMessage});
+}
+
+final class DeleteUserSuccess extends UserState {
+  final DeldetModel deldetModel;
+
+  DeleteUserSuccess({required this.deldetModel});
+}
 
 final class Userfailer extends UserState {
   final String errMessage;
