@@ -14,12 +14,12 @@ class CustomHomeBody extends StatelessWidget {
           SliverToBoxAdapter(child: CategoriesListView()),
           SliverToBoxAdapter(child: SizedBox(height: 16)),
           NewsListViewBuilder(
-            category: 'general',
+            category: 'top',
             imageEqualNull: true,
           ),
           SliverToBoxAdapter(child: SizedBox(height: 16)),
           NewsListViewBuilder(
-            category: 'general',
+            category: 'top',
             imageEqualNull: false,
           ),
         ],

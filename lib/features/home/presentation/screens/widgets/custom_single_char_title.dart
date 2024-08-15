@@ -8,7 +8,7 @@ class CustomSingleCharTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.sizeOf(context).height * 0.035,
+      height: MediaQuery.sizeOf(context).height * 0.037,
       width: MediaQuery.sizeOf(context).width * 0.07,
       alignment: Alignment.center,
       margin: const EdgeInsets.only(right: 6),

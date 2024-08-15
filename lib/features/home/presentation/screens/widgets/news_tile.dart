@@ -39,7 +39,6 @@ class NewsTile extends StatelessWidget {
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
           style: const TextStyle(
-            color: Colors.black87,
             fontSize: 20,
             fontWeight: FontWeight.w500,
           ),

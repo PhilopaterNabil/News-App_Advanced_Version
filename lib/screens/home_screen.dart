@@ -7,10 +7,11 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      appBar: CustomHomeAppBar(),
+    return  Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.inverseSurface,
+      appBar: const CustomHomeAppBar(),
       // drawer: CustomHomeDrawer(),
-      body: CustomHomeBody(),
+      body: const CustomHomeBody(),
     );
   }
 }

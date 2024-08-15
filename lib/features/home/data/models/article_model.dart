@@ -8,9 +8,9 @@ class ArticleModel {
 
   factory ArticleModel.fromJson(json) {
     return ArticleModel(
-      image: json["urlToImage"],
-      title: json["title"],
-      subTitle: json["description"],
+      image: json['image_url'],
+      title: json['title'],
+      subTitle:json['description'],
     );
   }
 }

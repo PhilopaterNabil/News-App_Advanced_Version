@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:news_app_team/features/home/presentation/screens/widgets/circle_person_avatar_app_Bar.dart';
 import 'package:news_app_team/features/home/presentation/screens/widgets/custom_title_app_bar.dart';
+import 'package:news_app_team/screens/settings_screen.dart';
 
 class CustomHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomHomeAppBar({super.key});
@@ -15,10 +15,14 @@ class CustomHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: true,
       actions: [
         IconButton(
-          onPressed: () => Get.back(),
+          onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const SettingsScreen(),
+              )),
           icon: const Icon(
-            Icons.exit_to_app,
-            color: Colors.red,
+            Icons.settings,
+            color: Colors.deepPurple,
             size: 35,
           ),
         ),

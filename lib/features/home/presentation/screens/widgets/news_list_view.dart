@@ -26,7 +26,7 @@ class NewsListView extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(6),
-                      color: Colors.black12,
+                      color: Theme.of(context).colorScheme.primary,
                     ),
                     child: NewsTile(
                       articleModel: articles[index],
