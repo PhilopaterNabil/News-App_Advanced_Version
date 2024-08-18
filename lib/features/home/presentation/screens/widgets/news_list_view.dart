@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:news_app_team/features/home/data/models/article_model.dart';
 import 'package:news_app_team/features/home/presentation/screens/widgets/news_tile.dart';
+import 'package:news_app_team/models/theme_provider.dart';
+import 'package:news_app_team/screens/news_details_screen.dart';
+import 'package:provider/provider.dart';
 
 class NewsListView extends StatelessWidget {
+  const NewsListView({
+    super.key,
+    required this.articles,
+    required this.imageEqualNull,
+  });
+
   final List<ArticleModel> articles;
-
-  const NewsListView(
-      {super.key, required this.articles, required this.imageEqualNull});
-
   final bool imageEqualNull;
 
   @override
@@ -20,17 +25,34 @@ class NewsListView extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 itemCount: articles.length,
                 itemBuilder: (context, index) {
-                  return Container(
-                    width: 300,
-                    margin: const EdgeInsets.only(right: 22),
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(6),
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-                    child: NewsTile(
-                      articleModel: articles[index],
-                      imageEqualNull: imageEqualNull,
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => NewsDetailsScreen(
+                            articleModel: articles[index],
+                            imageEqualNull: imageEqualNull,
+                          ),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      width: 300,
+                      margin: const EdgeInsets.only(right: 12),
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(6),
+                        color: context
+                            .watch<ThemeProvider>()
+                            .themedata
+                            .colorScheme
+                            .primary,
+                      ),
+                      child: NewsTile(
+                        articleModel: articles[index],
+                        imageEqualNull: imageEqualNull,
+                      ),
                     ),
                   );
                 },
@@ -43,11 +65,24 @@ class NewsListView extends StatelessWidget {
               (context, index) {
                 return articles[index].image == null
                     ? const SizedBox()
-                    : Padding(
-                        padding: const EdgeInsets.only(bottom: 22),
-                        child: NewsTile(
-                          articleModel: articles[index],
-                          imageEqualNull: imageEqualNull,
+                    : GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => NewsDetailsScreen(
+                                articleModel: articles[index],
+                                imageEqualNull: imageEqualNull,
+                              ),
+                            ),
+                          );
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 22),
+                          child: NewsTile(
+                            articleModel: articles[index],
+                            imageEqualNull: imageEqualNull,
+                          ),
                         ),
                       );
               },

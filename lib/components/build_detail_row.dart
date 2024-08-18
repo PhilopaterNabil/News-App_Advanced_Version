@@ -3,11 +3,12 @@ import 'dart:core';
 import 'package:flutter/material.dart';
 
 class BuildDetailRow extends StatelessWidget {
+  const BuildDetailRow(
+      {super.key, required this.title, required this.value, this.action});
+
   final String title;
   final String value;
-  String? action;
-  BuildDetailRow(
-      {super.key, required this.title, required this.value, this.action});
+  final String? action;
 
   @override
   Widget build(BuildContext context) {

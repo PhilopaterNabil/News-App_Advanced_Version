@@ -13,8 +13,12 @@ class CategoryScreen extends StatelessWidget {
         elevation: 0,
         backgroundColor: Colors.transparent,
         forceMaterialTransparency: true,
+        leading: IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: const Icon(Icons.arrow_back_ios),
+        ),
         title: Text(
-          category,
+          capitalizeFirstLetter(category),
           style: const TextStyle(
             color: Colors.purpleAccent,
             fontWeight: FontWeight.bold,
@@ -39,5 +43,12 @@ class CategoryScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String capitalizeFirstLetter(String input) {
+    if (input.isEmpty) {
+      return input;
+    }
+    return input[0].toUpperCase() + input.substring(1);
   }
 }

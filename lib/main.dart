@@ -5,11 +5,13 @@ import 'package:news_app_team/models/theme_provider.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(    MultiProvider(
-       providers: [
+  runApp(
+    MultiProvider(
+      providers: [
         ChangeNotifierProvider(create: (context) => ThemeProvider()),
         ChangeNotifierProvider(create: (context) => ImageProfileProvider()),
-       ],
-        child:  NewsApp(),
-      ),);
+      ],
+      child: const NewsApp(),
+    ),
+  );
 }

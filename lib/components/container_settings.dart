@@ -18,6 +18,7 @@ class ContainerSettings extends StatelessWidget {
         height: 80,
         width: double.infinity,
         decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
           color: Theme.of(context).colorScheme.primary,
         ),
         child: Padding(

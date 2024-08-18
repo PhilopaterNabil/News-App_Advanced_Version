@@ -49,7 +49,7 @@ class NewsTile extends StatelessWidget {
         imageEqualNull == true
             ? const SizedBox()
             : Text(
-                articleModel.subTitle ?? '',
+                articleModel.description ?? '',
                 maxLines: 2,
                 style: const TextStyle(color: Colors.grey, fontSize: 14),
               )

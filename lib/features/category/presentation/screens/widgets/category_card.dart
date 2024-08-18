@@ -30,7 +30,7 @@ class CategoryCard extends StatelessWidget {
           ),
           child: Center(
             child: Text(
-              category.categoryName,
+              capitalizeFirstLetter(category.categoryName),
               style: const TextStyle(
                 color: Colors.purpleAccent,
                 fontSize: 14,
@@ -41,5 +41,12 @@ class CategoryCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String capitalizeFirstLetter(String input) {
+    if (input.isEmpty) {
+      return input;
+    }
+    return input[0].toUpperCase() + input.substring(1);
   }
 }
