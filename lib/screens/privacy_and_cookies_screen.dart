@@ -10,6 +10,22 @@ class PrivacyAndCookiesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.inverseSurface,
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inverseSurface,
+        leading: IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: const Icon(Icons.arrow_back_ios),
+        ),
+        title: const Text(
+          'Privacy and cookies',
+          style: TextStyle(
+            color: Colors.grey,
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        centerTitle: true,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: ListView(children: [
@@ -17,20 +33,20 @@ class PrivacyAndCookiesScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(
-                height: 20,
-              ),
-              const Text(
-                "Privacy and cookies",
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(
-                height: 30,
-              ),
+              // const SizedBox(
+              //   height: 20,
+              // ),
+              // const Text(
+              //   "Privacy and cookies",
+              //   style: TextStyle(
+              //     color: Colors.grey,
+              //     fontSize: 30,
+              //     fontWeight: FontWeight.bold,
+              //   ),
+              // ),
+              // const SizedBox(
+              //   height: 30,
+              // ),
               const Text(
                 "This page lets you control how we use your info, and whether we can track how you use the BBC. We use this information to give you a more personal experience.",
                 style: TextStyle(
