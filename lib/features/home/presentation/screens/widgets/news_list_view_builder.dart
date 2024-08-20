@@ -4,6 +4,8 @@ import 'package:news_app_team/features/home/data/models/article_model.dart';
 import 'package:news_app_team/features/home/data/services/news_service.dart';
 import 'package:news_app_team/features/home/presentation/screens/widgets/error_message.dart';
 import 'package:news_app_team/features/home/presentation/screens/widgets/news_list_view.dart';
+import 'package:news_app_team/models/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 class NewsListViewBuilder extends StatefulWidget {
   const NewsListViewBuilder(
@@ -43,9 +45,15 @@ class _NewsListViewBuilderState extends State<NewsListViewBuilder> {
         } else {
           return widget.imageEqualNull == true
               ? const SliverToBoxAdapter()
-              : const SliverToBoxAdapter(
+              : SliverToBoxAdapter(
                   child: Center(
-                    child: CircularProgressIndicator(),
+                    child: CircularProgressIndicator(
+                      color: context
+                          .watch<ThemeProvider>()
+                          .themedata
+                          .colorScheme
+                          .secondary,
+                    ),
                   ),
                 );
         }
